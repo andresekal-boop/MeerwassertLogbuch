@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleDisplayName</key><string>Meerwasser-Logbuch</string>
+<key>UILaunchScreen</key><dict><key>UIColorName</key><string></string></dict>
+<key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
+<key>NSCameraUsageDescription</key><string>Die Kamera wird genutzt, um Wasserwerte und dein Aquarium zu fotografieren.</string>
+<key>NSPhotoLibraryUsageDescription</key><string>Du kannst Aquariumfotos für Analysen und dein Fototagebuch auswählen.</string>
+<key>NSPhotoLibraryAddUsageDescription</key><string>Die App kann Aquariumfotos speichern, wenn du dies auswählst.</string>
+<key>NSAppTransportSecurity</key><dict><key>NSAllowsArbitraryLoads</key><false/></dict>
+</dict></plist>

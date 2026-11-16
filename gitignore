@@ -1,0 +1,19 @@
+# Xcode
+.DS_Store
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# Secrets / local environment
+.env
+.env.*
+!.env.example
+*.p8
+*.mobileprovision

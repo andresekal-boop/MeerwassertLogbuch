@@ -1,0 +1,30 @@
+name: iOS build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+      - name: Build unsigned iOS app
+        run: |
+          xcodebuild \
+            -project MeerwasserLogbuch.xcodeproj \
+            -scheme MeerwasserLogbuch \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+      - name: Upload .app build
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeerwasserLogbuch-unsigned-app
+          path: build/DerivedData/Build/Products/Release-iphoneos/MeerwasserLogbuch.app
