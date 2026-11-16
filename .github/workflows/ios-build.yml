@@ -1,0 +1,42 @@
+name: Build Unsigned IPA
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Ermöglicht das manuelle Starten auf GitHub
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Xcode-Version prüfen
+        run: xcodebuild -version
+
+      - name: App ohne Signatur kompilieren (.xcarchive)
+        run: |
+          xcodebuild archive \
+            -project MeerwasserLogbuch.xcodeproj \
+            -scheme MeerwasserLogbuch \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath $RUNNER_TEMP/MeerwasserLogbuch.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Unsginierte IPA verpacken
+        run: |
+          mkdir -p $RUNNER_TEMP/Payload
+          cp -r $RUNNER_TEMP/MeerwasserLogbuch.xcarchive/Products/Applications/MeerwasserLogbuch.app $RUNNER_TEMP/Payload/
+          cd $RUNNER_TEMP
+          zip -r MeerwasserLogbuch-unsigned.ipa Payload
+
+      - name: IPA als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeerwasserLogbuch-unsigned-ipa
+          path: ${{ runner.temp }}/MeerwasserLogbuch-unsigned.ipa
